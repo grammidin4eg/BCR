@@ -17,7 +17,7 @@ class GameStage(Stage):
         self.objects.draw(screen)
 
     def update(self, events):
-        self.objects.update()
+        self.objects.update(events, self.objects)
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == K_ESCAPE:
