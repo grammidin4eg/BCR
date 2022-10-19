@@ -27,7 +27,6 @@ class StageManager:
     def update(self, events):
         newScene = self.getCurrent().update(events)
         if newScene != None:
-            print('new scene', newScene)
             if newScene == 'EXIT':
                 return 'EXIT'
             self.goTo(newScene)

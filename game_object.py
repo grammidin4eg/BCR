@@ -7,13 +7,14 @@ class GameObject(pygame.sprite.Sprite):
     def __init__(self, file_name: str, x: int, y: int):
         super().__init__()
         if (not imageHash.get(file_name)):
-            print('load image: ', file_name)
             imageHash[file_name] = pygame.image.load(f'images/{file_name}.png').convert_alpha()
         self.image = self.origin = imageHash[file_name]
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.speed = 1
+        self.speed = 0
+        self.life = 1
+        self.isAim = True
     def update(self):
         pass
     def collide(self, rect):
@@ -23,3 +24,8 @@ class GameObject(pygame.sprite.Sprite):
     def move(self, moveX: int, moveY: int):
         self.rect.x += moveX * self.speed
         self.rect.y += moveY * self.speed
+    def hit(self, power: int) -> int:
+        self.life -= power
+        if self.life < 1:
+            self.kill()
+        return self.life

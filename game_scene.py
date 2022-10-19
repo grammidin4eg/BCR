@@ -2,6 +2,7 @@ import pygame
 from pygame.constants import K_ESCAPE
 from StageManagement import Stage
 from player import Player
+from block import Block, Block2
 
 class GameStage(Stage):
     def __init__(self):
@@ -9,6 +10,8 @@ class GameStage(Stage):
         # загрузка шрифта
         self.titleFont = pygame.font.Font('font1.ttf', 100)
         self.objects = pygame.sprite.Group(Player())
+        self.objects.add(Block2(380, 20))
+        self.objects.add(Block(340, 30))
         # загрузка картинок
     def render(self, screen):
         # Заголовок

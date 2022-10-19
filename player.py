@@ -45,7 +45,7 @@ class Player(GameObject):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and current_time > self.nextBulletThreshold:
-                    objects.add(Bullet(self.rect.centerx, self.rect.centery, self.directX, self.directY))
+                    objects.add(Bullet(self.rect.centerx, self.rect.centery, self.directX, self.directY, self))
                     self.nextBulletThreshold = current_time + BULLET_DELAY
 
         return super().update()
