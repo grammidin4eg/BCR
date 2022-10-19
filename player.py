@@ -1,15 +1,18 @@
 import pygame
-from game_object import Direction, GameObject
+from game_object import GameObject
 from constants import *
 from bullet import Bullet
 
 SPEED = 4
+BULLET_DELAY = 500
 
 class Player(GameObject):
     def __init__(self):
         super().__init__('tank', SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
         self.speed = SPEED
-        self.direct = Direction.EMPTY
+        self.directX = 0
+        self.directY = -1
+        self.nextBulletThreshold = 0
     def update(self, events, objects):
         keys = pygame.key.get_pressed()
         directionX = 0
@@ -17,28 +20,32 @@ class Player(GameObject):
         if keys[pygame.K_UP]:
             self.rotate(0)
             directionY = -1
-            self.direct = Direction.UP
+
         if keys[pygame.K_DOWN]:
             self.rotate(180)
             directionY = 1
-            self.direct = Direction.DOWN
 
         if keys[pygame.K_RIGHT]:
             self.rotate(-90 - directionY * 45)
             directionX = 1
-            self.direct = Direction.RIGHT
+
         if keys[pygame.K_LEFT]:
             self.rotate(90 + directionY * 45)
             directionX = -1
-            self.direct = Direction.LEFT
+            
+        if directionX != 0 or directionY != 0:
+            self.directY = directionY
+            self.directX = directionX
         #if directionX != 0:
         #    self.flip(directionX < 0)
-        self.rect.x += directionX * self.speed
-        self.rect.y += directionY * self.speed
-
+        self.move(directionX, directionY)
+        
+        
+        current_time = pygame.time.get_ticks()
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    objects.add(Bullet(self.rect.centerx, self.rect.centery, self.direct))
+                if event.key == pygame.K_SPACE and current_time > self.nextBulletThreshold:
+                    objects.add(Bullet(self.rect.centerx, self.rect.centery, self.directX, self.directY))
+                    self.nextBulletThreshold = current_time + BULLET_DELAY
 
         return super().update()

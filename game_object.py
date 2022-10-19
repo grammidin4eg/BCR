@@ -3,14 +3,6 @@ from enum import Enum
 
 imageHash = {}
 
-class Direction(Enum):
-    UP = 1
-    DOWN = 2
-    LEFT = 3
-    RIGHT = 4
-    EMPTY = 0
-
-
 class GameObject(pygame.sprite.Sprite):
     def __init__(self, file_name: str, x: int, y: int):
         super().__init__()
@@ -31,15 +23,3 @@ class GameObject(pygame.sprite.Sprite):
     def move(self, moveX: int, moveY: int):
         self.rect.x += moveX * self.speed
         self.rect.y += moveY * self.speed
-    def moveDirection(self, direction: Direction):
-        moveX = 0
-        moveY = 0
-        if direction == Direction.RIGHT:
-            moveX = 1
-        if direction == Direction.LEFT:
-            moveX = -1
-        if direction == Direction.UP:
-            moveY = -1
-        if direction == Direction.DOWN:
-            moveY = 1
-        self.move(moveX, moveY)
