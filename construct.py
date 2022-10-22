@@ -28,6 +28,8 @@ images.append(pygame.image.load(f'images/block2.png'))
 images.append(pygame.image.load(f'images/grass.png'))
 images.append(pygame.image.load(f'images/water.png'))
 images.append(pygame.image.load(f'images/lava.png'))
+images.append(pygame.image.load(f'images/tank.png'))
+images.append(pygame.image.load(f'images/enemy1.png'))
         
 class ConstructStage(Stage):
     def __init__(self):
@@ -65,8 +67,8 @@ class ConstructStage(Stage):
                 if event.key == pygame.K_DOWN:
                     self.changeCur(-1)
                 if event.key == pygame.K_s and event.mod & pygame.KMOD_CTRL:
-                    print('save file save.txt...')
-                    fp = open('save.txt', 'w')
+                    print('save file save.lvl...')
+                    fp = open('save.lvl', 'w')
                     stext = ""
                     for block in self.blocks:
                         stext += str(block.getIndex())
@@ -74,8 +76,8 @@ class ConstructStage(Stage):
                     fp.close()
                     print('done')
                 if event.key == pygame.K_l and event.mod & pygame.KMOD_CTRL:
-                    print('load file save.txt...')
-                    fp = open('save.txt', 'r')
+                    print('load file save.lvl...')
+                    fp = open('save.lvl', 'r')
                     stext = fp.readline()
                     fp.close()
                     print('read: ', stext)
