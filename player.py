@@ -37,10 +37,7 @@ class Player(GameObject):
         if directionX != 0 or directionY != 0:
             self.directY = directionY
             self.directX = directionX
-        #if directionX != 0:
-        #    self.flip(directionX < 0)
-        self.move(directionX, directionY)
-        
+            self.move(directionX, directionY, objects)
         
         current_time = pygame.time.get_ticks()
         for event in events:
