@@ -1,7 +1,7 @@
 import pygame
 from pygame.constants import K_ESCAPE
 from StageManagement import Stage
-from constants import SCREEN_WIDTH
+from constants import SCREEN_WIDTH, BS
 
 class EditorBlock(pygame.sprite.Sprite):
     def __init__(self, x, y, img):
@@ -20,7 +20,6 @@ class EditorBlock(pygame.sprite.Sprite):
         self.index = index
         self.image = img
 
-BS = 32
 images = []
 images.append(pygame.image.load(f'images/0.jpg'))
 images.append(pygame.image.load(f'images/block1.png'))

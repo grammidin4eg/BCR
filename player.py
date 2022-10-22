@@ -7,8 +7,8 @@ SPEED = 4
 BULLET_DELAY = 500
 
 class Player(GameObject):
-    def __init__(self):
-        super().__init__('tank', SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    def __init__(self, x: int, y: int):
+        super().__init__('tank', x, y)
         self.speed = SPEED
         self.directX = 0
         self.directY = -1
