@@ -21,7 +21,7 @@ sceneManager = StageManager()
 sceneManager.add(MenuStage(), 'MENU')
 sceneManager.add(GameStage(), 'GAME')
 sceneManager.add(ConstructStage(), 'CONSTRUCT')
-sceneManager.goTo('CONSTRUCT')
+sceneManager.goTo('GAME')
 #Основной цикл игры
 while process:
     # обработка событий игры

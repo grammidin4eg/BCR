@@ -15,7 +15,7 @@ class GameObject(pygame.sprite.Sprite):
         self.speed = 0
         self.life = 1
         self.isAim = True
-    def update(self):
+    def update(self, events, objects):
         pass
     def collide(self, rect):
         return self.rect.colliderect(rect)

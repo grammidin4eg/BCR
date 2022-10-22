@@ -2,6 +2,7 @@ import pygame
 from game_object import GameObject
 from constants import *
 from bullet import Bullet
+from controls import isControlLeft
 
 SPEED = 4
 BULLET_DELAY = 500
@@ -29,7 +30,7 @@ class Player(GameObject):
             self.rotate(-90 - directionY * 45)
             directionX = 1
 
-        if keys[pygame.K_LEFT]:
+        if isControlLeft():
             self.rotate(90 + directionY * 45)
             directionX = -1
             
@@ -48,4 +49,4 @@ class Player(GameObject):
                     objects.add(Bullet(self.rect.centerx, self.rect.centery, self.directX, self.directY, self))
                     self.nextBulletThreshold = current_time + BULLET_DELAY
 
-        return super().update()
+        return super().update(events, objects)

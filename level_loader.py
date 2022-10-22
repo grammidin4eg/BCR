@@ -36,8 +36,16 @@ def loadLevelByFullName(file_name: str) -> pygame.sprite.Group:
                 newObj = Block(newX, newY)
             if stext[j] == '2':
                 newObj = Block2(newX, newY)
+            if stext[j] == '3':
+                newObj = GameObject('grass', newX, newY)
+            if stext[j] == '4':
+                newObj = GameObject('water', newX, newY)
+            if stext[j] == '5':
+                newObj = GameObject('lava', newX, newY)
             if stext[j] == '6':
                 newObj = Player(newX, newY)
+            if stext[j] == '7':
+                newObj = GameObject('enemy1', newX, newY)
             if newObj != None:
                 objects.add(newObj)
                 print('add ', newObj)

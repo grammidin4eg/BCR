@@ -6,7 +6,7 @@ class Block(GameObject):
         super().__init__('block1', x, y)
         self.life = 3
     def update(self, events, objects):
-        return super().update()
+        return super().update(events, objects)
     
 
 class Block2(GameObject):
@@ -14,4 +14,4 @@ class Block2(GameObject):
         super().__init__('block2', x, y)
         self.life = 1000
     def update(self, events, objects):
-        return super().update()
+        return super().update(events, objects)
