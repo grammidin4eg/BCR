@@ -2,7 +2,7 @@ import pygame
 from game_object import GameObject
 from constants import *
 from bullet import Bullet
-from controls import isControlLeft
+from controls import isControlLeft, isControlRight
 
 SPEED = 4
 BULLET_DELAY = 500
@@ -26,7 +26,7 @@ class Player(GameObject):
             self.rotate(180)
             directionY = 1
 
-        if keys[pygame.K_RIGHT]:
+        if isControlRight():
             self.rotate(-90 - directionY * 45)
             directionX = 1
 
@@ -37,7 +37,7 @@ class Player(GameObject):
         if directionX != 0 or directionY != 0:
             self.directY = directionY
             self.directX = directionX
-            self.move(directionX, directionY, objects)
+            self.move(directionX, directionY, objects, True)
         
         current_time = pygame.time.get_ticks()
         for event in events:

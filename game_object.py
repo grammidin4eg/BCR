@@ -1,5 +1,6 @@
 import pygame
 from enum import Enum
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 imageHash = {}
 
@@ -28,7 +29,7 @@ class GameObject(pygame.sprite.Sprite):
     def rotate(self, angle: int):
         self.image = pygame.transform.rotate(self.origin, angle)
 
-    def move(self, moveX: int, moveY: int, objects):
+    def move(self, moveX: int, moveY: int, objects = pygame.sprite.Group(), checkOutside = False):
         oldX = self.rect.x
         oldY = self.rect.y
         self.rect.x += moveX * self.speed
@@ -38,10 +39,13 @@ class GameObject(pygame.sprite.Sprite):
             if curObj != self and curObj.isMoveBlock and curObj.collide(self.rect):
                 hasCollide = True
                 break
+        if checkOutside and self.isOutside():
+            hasCollide = True
         if hasCollide:
             self.rect.x = oldX
             self.rect.y = oldY
-
+    def isOutside(self) -> bool:
+        return self.rect.x < 0 or (self.rect.x + self.rect.width) > SCREEN_WIDTH or self.rect.y < 0 or (self.rect.y + self.rect.height) > SCREEN_HEIGHT
     def hit(self, power: int) -> int:
         self.life -= power
         if self.life < 1:

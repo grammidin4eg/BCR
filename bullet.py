@@ -13,11 +13,11 @@ class Bullet(GameObject):
         self.power = 1
     def update(self, events, objects):
         self.move(self.directionX, self.directionY)
-        if self.rect.x < 0 or self.rect.y > SCREEN_WIDTH or self.rect.y < 0 or self.rect.y > SCREEN_HEIGHT:
+        if self.isOutside():
             self.kill()
         for obj in objects:
             if obj.isAim == True and obj != self and obj != self.owner and obj.collide(self.rect):
                 obj.hit(self.power)
                 self.kill()
                 break
-        return super().update()
+        return super().update(events, objects)
