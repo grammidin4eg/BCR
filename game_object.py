@@ -19,6 +19,7 @@ class GameObject(pygame.sprite.Sprite):
         self.life = 1
         self.isAim = True
         self.isMoveBlock = True
+        self.tag = 'GameObject'
 
     def update(self, events, objects):
         pass
@@ -49,5 +50,7 @@ class GameObject(pygame.sprite.Sprite):
     def hit(self, power: int) -> int:
         self.life -= power
         if self.life < 1:
-            self.kill()
+            self.killThis()
         return self.life
+    def killThis(self):
+        self.kill()

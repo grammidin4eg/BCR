@@ -14,6 +14,7 @@ class Player(GameObject):
         self.directX = 0
         self.directY = -1
         self.nextBulletThreshold = 0
+        self.tag = 'Player'
     def update(self, events, objects):
         keys = pygame.key.get_pressed()
         directionX = 0

@@ -1,8 +1,9 @@
 import pygame
 from game_object import GameObject
 from constants import BS
-from block import Block, Block2
+from block import Block, Block2, Water, Grass, Lava
 from player import Player
+from enemy import Enemy
 
 def loadTestLevel() -> pygame.sprite.Group:
     return loadLevelByFullName('save.lvl')
@@ -37,15 +38,15 @@ def loadLevelByFullName(file_name: str) -> pygame.sprite.Group:
             if stext[j] == '2':
                 newObj = Block2(newX, newY)
             if stext[j] == '3':
-                newObj = GameObject('grass', newX, newY)
+                newObj = Grass(newX, newY)
             if stext[j] == '4':
-                newObj = GameObject('water', newX, newY)
+                newObj = Water(newX, newY)
             if stext[j] == '5':
-                newObj = GameObject('lava', newX, newY)
+                newObj = Lava(newX, newY)
             if stext[j] == '6':
                 newObj = Player(newX, newY)
             if stext[j] == '7':
-                newObj = GameObject('enemy1', newX, newY)
+                newObj = Enemy(newX, newY)
             if newObj != None:
                 objects.add(newObj)
                 print('add ', newObj)
