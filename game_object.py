@@ -1,5 +1,6 @@
 import pygame
 from enum import Enum
+from anim_sprite import showBoom
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 imageHash = {}
@@ -47,10 +48,13 @@ class GameObject(pygame.sprite.Sprite):
             self.rect.y = oldY
     def isOutside(self) -> bool:
         return self.rect.x < 0 or (self.rect.x + self.rect.width) > SCREEN_WIDTH or self.rect.y < 0 or (self.rect.y + self.rect.height) > SCREEN_HEIGHT
-    def hit(self, power: int) -> int:
+    def hit(self, power: int, objects) -> int:
         self.life -= power
         if self.life < 1:
-            self.killThis()
+            self.killThis(objects)
         return self.life
-    def killThis(self):
+    def getPos(self):
+        return (self.rect.x, self.rect.y)
+    def killThis(self, objects):
+        showBoom(self.rect.center, objects)
         self.kill()

@@ -17,7 +17,7 @@ class Bullet(GameObject):
             self.kill()
         for obj in objects:
             if obj.isAim == True and obj != self and obj != self.owner and obj.collide(self.rect):
-                obj.hit(self.power)
+                obj.hit(self.power, objects)
                 self.kill()
                 break
         return super().update(events, objects)

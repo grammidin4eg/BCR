@@ -2,8 +2,7 @@ import pygame
 from pygame.constants import K_ESCAPE
 from StageManagement import Stage
 from level_loader import loadTestLevel
-from player import Player
-from block import Block, Block2
+from anim_sprite import AnimationSprite
 
 class GameStage(Stage):
     def __init__(self):

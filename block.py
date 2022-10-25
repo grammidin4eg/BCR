@@ -42,5 +42,5 @@ class Lava(GameObject):
     def update(self, events, objects):
         for curObj in objects:
             if curObj.tag == 'Player' and curObj.collide(self.rect):
-                curObj.killThis()
+                curObj.killThis(objects)
         return super().update(events, objects)
