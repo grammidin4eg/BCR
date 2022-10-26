@@ -4,6 +4,7 @@ from constants import BS
 from block import Block, Block2, Water, Grass, Lava
 from player import Player
 from enemy import Enemy
+from ground import setCurGround
 
 def loadTestLevel() -> pygame.sprite.Group:
     return loadLevelByFullName('save.lvl')
@@ -26,7 +27,8 @@ def loadLevelByFullName(file_name: str) -> pygame.sprite.Group:
     stext = fp.readline()
     fp.close()
     print('read: ', stext)
-    j = 0
+    setCurGround(int(stext[0]))
+    j = 1
     # создаем массив
     for y in range(19):
         for x in range(25):

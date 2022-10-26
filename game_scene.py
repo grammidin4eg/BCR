@@ -1,6 +1,7 @@
 import pygame
 from pygame.constants import K_ESCAPE
 from StageManagement import Stage
+from ground import renderGround
 from level_loader import loadTestLevel
 from anim_sprite import AnimationSprite
 
@@ -16,10 +17,7 @@ class GameStage(Stage):
         # Заголовок
         # text = self.titleFont.render('GAME', 2, pygame.Color('blue'))
         # screen.blit(text, (200, 200))
-        #screen.fill(pygame.Color('black')) # заливка экрана цветом
-        for gx in range(4):
-            for gy in range(3):
-                screen.blit(self.ground, (gx * self.ground.get_rect().width, gy * self.ground.get_rect().height))
+        renderGround(screen)
         self.objects.draw(screen)
 
     def update(self, events):

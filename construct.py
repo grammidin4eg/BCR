@@ -2,6 +2,7 @@ import pygame
 from pygame.constants import K_ESCAPE
 from StageManagement import Stage
 from constants import SCREEN_WIDTH, BS
+from ground import GROUND_LEN, renderGround
 
 class EditorBlock(pygame.sprite.Sprite):
     def __init__(self, x, y, img):
@@ -21,7 +22,7 @@ class EditorBlock(pygame.sprite.Sprite):
         self.image = img
 
 images = []
-images.append(pygame.image.load(f'images/0.jpg'))
+images.append(pygame.image.load(f'images/cell.png'))
 images.append(pygame.image.load(f'images/block1.png'))
 images.append(pygame.image.load(f'images/block2.png'))
 images.append(pygame.image.load(f'images/grass.png'))
@@ -36,10 +37,12 @@ class ConstructStage(Stage):
         # загрузка картинок
         self.blocks = pygame.sprite.Group()
         self.cur = 1
+        self.ground = 0
         for y in range(19):
             for x in range(25):
                 self.blocks.add(EditorBlock(x*BS,y*BS,images[0]))
     def render(self, screen):
+        renderGround(screen, self.ground)
         self.blocks.draw(screen)
         screen.blit(images[self.cur], (SCREEN_WIDTH - BS, 0))
     def changeCur(self, delta: int):
@@ -65,10 +68,14 @@ class ConstructStage(Stage):
                     self.changeCur(1)
                 if event.key == pygame.K_DOWN:
                     self.changeCur(-1)
+                if event.key == pygame.K_g:
+                    self.ground += 1
+                    if self.ground > GROUND_LEN:
+                        self.ground = 0
                 if event.key == pygame.K_s and event.mod & pygame.KMOD_CTRL:
                     print('save file save.lvl...')
                     fp = open('save.lvl', 'w')
-                    stext = ""
+                    stext = str(self.ground)
                     for block in self.blocks:
                         stext += str(block.getIndex())
                     fp.write(stext)
@@ -80,7 +87,8 @@ class ConstructStage(Stage):
                     stext = fp.readline()
                     fp.close()
                     print('read: ', stext)
-                    j = 0
+                    self.ground = int(stext[0])
+                    j = 1
                     for block in self.blocks:
                         curIndex = int(stext[j])
                         curImage = images[curIndex]
