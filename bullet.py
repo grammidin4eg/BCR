@@ -1,7 +1,7 @@
 import pygame
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from game_object import GameObject
-SPEED = 10
+SPEED = 7
 
 class Bullet(GameObject):
     def __init__(self, x: int, y: int, moveX: int, moveY: int, owner: GameObject):

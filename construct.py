@@ -30,6 +30,7 @@ images.append(pygame.image.load(f'images/water.png'))
 images.append(pygame.image.load(f'images/lava.png'))
 images.append(pygame.image.load(f'images/tank.png'))
 images.append(pygame.image.load(f'images/enemy1.png'))
+images.append(pygame.image.load(f'images/portal.png'))
         
 class ConstructStage(Stage):
     def __init__(self):

@@ -2,10 +2,17 @@ import pygame
 from game_object import GameObject
 from constants import *
 from bullet import Bullet
-from controls import isControlLeft, isControlRight
+from controls import isControlDown, isControlFire, isControlLeft, isControlRight, isControlUp
 
 SPEED = 4
 BULLET_DELAY = 500
+COLLIDE_FIX = 3
+
+def findPlayer(objects):
+    for cur in objects:
+        if cur.tag == 'Player':
+            return cur
+    return None
 
 class Player(GameObject):
     def __init__(self, x: int, y: int):
@@ -15,15 +22,20 @@ class Player(GameObject):
         self.directY = -1
         self.nextBulletThreshold = 0
         self.tag = 'Player'
+        self.life = 3
+        self.collideRect.width = self.collideRect.width - COLLIDE_FIX
+        self.collideRect.x = self.collideRect.x - COLLIDE_FIX
+        self.collideRect.height = self.collideRect.height - COLLIDE_FIX
+        self.collideRect.y = self.collideRect.y - COLLIDE_FIX
     def update(self, events, objects):
         keys = pygame.key.get_pressed()
         directionX = 0
         directionY = 0
-        if keys[pygame.K_UP]:
+        if isControlUp():
             self.rotate(0)
             directionY = -1
 
-        if keys[pygame.K_DOWN]:
+        if isControlDown():
             self.rotate(180)
             directionY = 1
 
@@ -43,7 +55,7 @@ class Player(GameObject):
         current_time = pygame.time.get_ticks()
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and current_time > self.nextBulletThreshold:
+                if isControlFire(event) and current_time > self.nextBulletThreshold:
                     objects.add(Bullet(self.rect.centerx, self.rect.centery, self.directX, self.directY, self))
                     self.nextBulletThreshold = current_time + BULLET_DELAY
 

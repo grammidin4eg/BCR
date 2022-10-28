@@ -49,6 +49,8 @@ def loadLevelByFullName(file_name: str) -> pygame.sprite.Group:
                 newObj = Player(newX, newY)
             if stext[j] == '7':
                 newObj = Enemy(newX, newY)
+            if stext[j] == '8':
+                newObj = GameObject('portal', newX, newY)
             if newObj != None:
                 objects.add(newObj)
                 print('add ', newObj)
