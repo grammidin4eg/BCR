@@ -23,6 +23,7 @@ class Player(GameObject):
         self.nextBulletThreshold = 0
         self.tag = 'Player'
         self.life = 3
+        self.isShild = True
         self.collideRect.width = self.collideRect.width - COLLIDE_FIX
         self.collideRect.x = self.collideRect.x - COLLIDE_FIX
         self.collideRect.height = self.collideRect.height - COLLIDE_FIX

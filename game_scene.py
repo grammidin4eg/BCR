@@ -20,6 +20,10 @@ class GameStage(Stage):
     def render(self, screen):
         renderGround(screen)
         self.objects.draw(screen)
+        # вторичная отрисовка объектов
+        for curObj in self.objects:
+            if curObj.isMoveBlock:
+                curObj.secondDraw(screen)
         # UI
         # жизни
         text = self.uiFont.render(str(self.player.life), 2, pygame.Color('orange'))
