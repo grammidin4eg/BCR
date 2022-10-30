@@ -31,6 +31,9 @@ class GameStage(Stage):
 
     def update(self, events):
         self.objects.update(events, self.objects)
+        #проверим, жив ли игрок. Если нет - game over
+        if self.player.life < 1:
+            return 'GAMEOVER'
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == K_ESCAPE:

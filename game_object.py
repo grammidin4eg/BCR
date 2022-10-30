@@ -42,6 +42,11 @@ class GameObject(pygame.sprite.Sprite):
                     self.isShildVisible = True
         pass
 
+    def giveShield(self):
+        self.isShild = True
+        self.shieldTick = 5
+        self.isShildVisible = True
+
     def secondDraw(self, surface):
         if self.isShild and self.isShildVisible:
             pygame.draw.circle(surface, pygame.Color('blue'), self.rect.center, 28, 3)
@@ -77,13 +82,15 @@ class GameObject(pygame.sprite.Sprite):
         self.life -= power
         if self.life < 1:
             self.killThis(objects)
+        elif self.tag == 'Player':
+            self.giveShield()
         return self.life
     def getPos(self):
         return (self.rect.x, self.rect.y)
     def killThis(self, objects):
-        if not self.isShild:
-            showBoom(self.rect.center, objects)
-            self.kill()
+        showBoom(self.rect.center, objects)
+        self.life = 0
+        self.kill()
 
 
 class UIObject(GameObject):
