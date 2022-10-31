@@ -11,7 +11,10 @@ class Portal(SysObject):
         self.delay = DEFAULT_TIME + random.randint(0, 2000)
         self.nextPortalThreshold = 0
         self.tag = 'Portal'
+        self.count = 10
     def update(self, events, objects):
+        if self.count < 1:
+            return super().update(events, objects)
         current_time = pygame.time.get_ticks()
         if current_time > self.nextPortalThreshold:
             # проверим, нет ли коллизии сейчас с другими объектами
@@ -21,5 +24,6 @@ class Portal(SysObject):
                     return
             # создать объект
             objects.add(Enemy(self.rect.x, self.rect.y))
+            self.count -= 1
             self.nextPortalThreshold = current_time + self.delay
         return super().update(events, objects)

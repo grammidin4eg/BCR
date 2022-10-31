@@ -5,6 +5,7 @@ from game_object import GameObject
 from player import findPlayer
 
 BULLET_DELAY = 900
+CORRECT_DELAY = 2000
 
 class Enemy(GameObject):
     def __init__(self, x: int, y: int):
@@ -16,6 +17,7 @@ class Enemy(GameObject):
         self.tag = 'Enemy'
         self.isShild = True
         self.shieldTick = 1
+        self.correctThreshold = pygame.time.get_ticks() + CORRECT_DELAY + random.randint(0, 2000)
     def iSeeAim(self, player):
         if player == None:
             return False
@@ -62,9 +64,28 @@ class Enemy(GameObject):
             self.gotoLeft()
         if rway == 4:
             self.gotoRight()
+    def correctWay(self, player):
+        if player == None:
+            return
+        divX = player.rect.x - self.rect.x
+        divY = player.rect.y - self.rect.y
+        if abs(divX) > abs(divY):
+            if player.rect.x < self.rect.x:
+                self.gotoLeft()
+            else:
+                self.gotoRight()
+        else:
+            if player.rect.y < self.rect.y:
+                self.gotoUp()
+            else:
+                self.gotoDown()
+        pass
     def update(self, events, objects):
         player = findPlayer(objects)
         current_time = pygame.time.get_ticks()
+        if current_time > self.correctThreshold:
+            self.correctWay(player)
+            self.correctThreshold = current_time + CORRECT_DELAY
         self.moveToDirection(objects)
         if self.iSeeAim(player) and current_time > self.nextBulletThreshold:
             objects.add(Bullet(self.rect.centerx, self.rect.centery, self.directX, self.directY, self))

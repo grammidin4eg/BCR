@@ -17,10 +17,11 @@ class GameStage(Stage):
         
         self.titleObject = self.titleFont.render('Game Over', 2, pygame.Color('red'))
         self.subtitleFont = pygame.font.Font('font3.ttf', 26)
-        self.subtitleObject = self.subtitleFont.render('Press ECS for exit', 2, pygame.Color('orange'))
+        self.subtitleObject = self.subtitleFont.render('Press Esc for exit', 2, pygame.Color('orange'))
         
         self.uiObjects = pygame.sprite.Group()
         self.uiObjects.add(UIObject('heart', 10, 10))
+        self.uiObjects.add(UIObject('uialiens', SCREEN_WIDTH - 80, 10))
         # загрузка картинок
     def start(self):
         self.objects = loadTestLevel()
@@ -30,14 +31,23 @@ class GameStage(Stage):
         renderGround(screen)
         self.objects.draw(screen)
         # вторичная отрисовка объектов
+        # заодно подсчитаем кол-во врагов
+        aliens = 0
         for curObj in self.objects:
             if curObj.isMoveBlock:
                 curObj.secondDraw(screen)
+            if curObj.tag == 'Enemy':
+                aliens += 1
+            if curObj.tag == 'Portal':
+                aliens += curObj.count
         # UI
         self.uiObjects.draw(screen)
         # жизни
         text = self.uiFont.render(str(self.player.life), 2, pygame.Color('orange'))
-        screen.blit(text, (37, 13))
+        screen.blit(text, (37, 14))
+        # враги
+        text = self.uiFont.render(str(aliens), 2, pygame.Color('orange'))
+        screen.blit(text, (SCREEN_WIDTH - 50, 14))
         
         #game over
         if self.isGameOver:
