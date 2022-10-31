@@ -28,6 +28,9 @@ class GameObject(pygame.sprite.Sprite):
         self.shieldTick = 5
         self.isShildVisible = True
         self.shieldThreshold = pygame.time.get_ticks() + SHIELD_TICK_DELAY
+        if (not imageHash.get('shield')):
+            imageHash['shield'] = pygame.image.load('images/shield.png').convert_alpha()
+        self.shieldImg = imageHash['shield']
 
     def update(self, events, objects):
         if self.isShild:
@@ -49,7 +52,7 @@ class GameObject(pygame.sprite.Sprite):
 
     def secondDraw(self, surface):
         if self.isShild and self.isShildVisible:
-            pygame.draw.circle(surface, pygame.Color('blue'), self.rect.center, 28, 3)
+            surface.blit(self.shieldImg, self.shieldImg.get_rect(center = self.rect.center))
 
     def collide(self, rect):
         return self.collideRect.colliderect(rect)
