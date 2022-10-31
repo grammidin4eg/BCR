@@ -15,19 +15,20 @@ class Enemy(GameObject):
         self.speed = 1
         self.tag = 'Enemy'
         self.isShild = True
+        self.shieldTick = 1
     def iSeeAim(self, player):
         if player == None:
             return False
         if (self.directY != 0):
-            first = (player.rect.x > self.rect.x) and (player.rect.x < self.rect.x + self.rect.width)
+            first = (player.rect.centerx >= self.rect.x) and (player.rect.centerx <= self.rect.x + self.rect.width)
             if self.directY > 0:
-                return first and (player.rect.y > self.rect.y)
+                return first and (player.rect.y >= self.rect.y)
             if self.directY < 0:
                 return first and (player.rect.y < self.rect.y)
         if (self.directX != 0):
-            first = (player.rect.y > self.rect.y) and (player.rect.y < self.rect.y + self.rect.height)
+            first = (player.rect.centery >= self.rect.y) and (player.rect.centery <= self.rect.y + self.rect.height)
             if self.directX > 0:
-                return first and (player.rect.x > self.rect.x)
+                return first and (player.rect.x >= self.rect.x)
             if self.directX < 0:
                 return first and (player.rect.x < self.rect.x)
         return False
