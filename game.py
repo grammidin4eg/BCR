@@ -3,6 +3,7 @@ from StageManagement import StageManager
 from menu import MenuStage
 from game_scene import GameStage
 from construct import ConstructStage
+from game_over import GameOverStage
 from constants import *
 
 #Инициализация
@@ -21,6 +22,7 @@ sceneManager = StageManager()
 sceneManager.add(MenuStage(), 'MENU')
 sceneManager.add(GameStage(), 'GAME')
 sceneManager.add(ConstructStage(), 'CONSTRUCT')
+sceneManager.add(GameOverStage(), 'GAMEOVER')
 sceneManager.goTo('GAME')
 #Основной цикл игры
 while process:

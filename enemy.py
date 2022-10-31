@@ -14,6 +14,7 @@ class Enemy(GameObject):
         self.nextBulletThreshold = 0
         self.speed = 1
         self.tag = 'Enemy'
+        self.isShild = True
     def iSeeAim(self, player):
         if player == None:
             return False

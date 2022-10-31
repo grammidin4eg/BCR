@@ -20,6 +20,10 @@ class GameStage(Stage):
     def render(self, screen):
         renderGround(screen)
         self.objects.draw(screen)
+        # вторичная отрисовка объектов
+        for curObj in self.objects:
+            if curObj.isMoveBlock:
+                curObj.secondDraw(screen)
         # UI
         # жизни
         text = self.uiFont.render(str(self.player.life), 2, pygame.Color('orange'))
@@ -27,6 +31,9 @@ class GameStage(Stage):
 
     def update(self, events):
         self.objects.update(events, self.objects)
+        #проверим, жив ли игрок. Если нет - game over
+        if self.player.life < 1:
+            return 'GAMEOVER'
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == K_ESCAPE:

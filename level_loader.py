@@ -5,6 +5,7 @@ from block import Block, Block2, Water, Grass, Lava
 from player import Player
 from enemy import Enemy
 from ground import setCurGround
+from sysobjects import Portal
 
 def loadTestLevel() -> pygame.sprite.Group:
     return loadLevelByFullName('save.lvl')
@@ -50,7 +51,7 @@ def loadLevelByFullName(file_name: str) -> pygame.sprite.Group:
             if stext[j] == '7':
                 newObj = Enemy(newX, newY)
             if stext[j] == '8':
-                newObj = GameObject('portal', newX, newY)
+                newObj = Portal(newX, newY)
             if newObj != None:
                 objects.add(newObj)
                 print('add ', newObj)
