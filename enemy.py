@@ -101,14 +101,14 @@ class SimpleEnemy(Enemy):
 class FastEnemy(Enemy):
     def __init__(self, x: int, y: int):
         super().__init__('enemy2', x, y)
-        self.speed = 2
+        self.speed = 3
         self.correctDelay = 1000
 
 
 class TankEnemy(Enemy):
     def __init__(self, x: int, y: int):
         super().__init__('enemy4', x, y)
-        self.speed = 0.5
+        self.speed = 1
         self.correctDelay = 3000
         self.life = 3
 
