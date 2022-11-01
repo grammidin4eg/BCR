@@ -1,12 +1,15 @@
 import pygame
 from pygame.constants import K_ESCAPE
 from StageManagement import Stage
+from bonuses import createRandomBonus
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from game_object import UIObject
 from ground import renderGround
 from level_loader import loadTestLevel
 from anim_sprite import AnimationSprite
 from player import findPlayer
+
+BONUS_EVENT = pygame.USEREVENT
 
 class GameStage(Stage):
     def __init__(self):
@@ -22,6 +25,7 @@ class GameStage(Stage):
         self.uiObjects = pygame.sprite.Group()
         self.uiObjects.add(UIObject('heart', 10, 10))
         self.uiObjects.add(UIObject('uialiens', SCREEN_WIDTH - 80, 10))
+        pygame.time.set_timer(BONUS_EVENT, 7000)
         # загрузка картинок
     def start(self):
         self.objects = loadTestLevel()
@@ -65,3 +69,5 @@ class GameStage(Stage):
             if event.type == pygame.KEYDOWN:
                 if event.key == K_ESCAPE:
                     return 'MENU'
+            if event.type == BONUS_EVENT:
+                createRandomBonus(self.objects)

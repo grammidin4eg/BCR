@@ -6,10 +6,10 @@ from player import findPlayer
 
 BULLET_DELAY = 900
 CORRECT_DELAY = 2000
-
+    
 class Enemy(GameObject):
-    def __init__(self, x: int, y: int):
-        super().__init__('enemy1', x, y)
+    def __init__(self, name, x: int, y: int):
+        super().__init__(name, x, y)
         self.life = 1
         self.randomDirection()
         self.nextBulletThreshold = 0
@@ -17,7 +17,8 @@ class Enemy(GameObject):
         self.tag = 'Enemy'
         self.isShild = True
         self.shieldTick = 1
-        self.correctThreshold = pygame.time.get_ticks() + CORRECT_DELAY + random.randint(0, 2000)
+        self.correctDelay = CORRECT_DELAY
+        self.correctThreshold = pygame.time.get_ticks() + self.correctDelay + random.randint(0, 2000)
     def iSeeAim(self, player):
         if player == None:
             return False
@@ -85,9 +86,38 @@ class Enemy(GameObject):
         current_time = pygame.time.get_ticks()
         if current_time > self.correctThreshold:
             self.correctWay(player)
-            self.correctThreshold = current_time + CORRECT_DELAY
+            self.correctThreshold = current_time + self.correctDelay
         self.moveToDirection(objects)
         if self.iSeeAim(player) and current_time > self.nextBulletThreshold:
             objects.add(Bullet(self.rect.centerx, self.rect.centery, self.directX, self.directY, self))
             self.nextBulletThreshold = current_time + BULLET_DELAY
         return super().update(events, objects)
+
+class SimpleEnemy(Enemy):
+    def __init__(self, x: int, y: int):
+        super().__init__('enemy1', x, y)
+
+
+class FastEnemy(Enemy):
+    def __init__(self, x: int, y: int):
+        super().__init__('enemy2', x, y)
+        self.speed = 2
+        self.correctDelay = 1000
+
+
+class TankEnemy(Enemy):
+    def __init__(self, x: int, y: int):
+        super().__init__('enemy4', x, y)
+        self.speed = 0.5
+        self.correctDelay = 3000
+        self.life = 3
+
+
+def createRandomEnemy(x, y):
+    rnd = random.randint(1, 6)
+    if rnd == 1 or rnd == 2 or rnd == 3:
+        return SimpleEnemy(x, y)
+    if rnd == 4 or rnd == 5:
+        return FastEnemy(x, y)
+    if rnd == 6:
+        return TankEnemy(x, y)

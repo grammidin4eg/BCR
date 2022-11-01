@@ -1,7 +1,7 @@
 import pygame
 import random
 from game_object import SysObject
-from enemy import Enemy
+from enemy import createRandomEnemy
 
 DEFAULT_TIME = 5000
 
@@ -23,7 +23,7 @@ class Portal(SysObject):
                     self.nextPortalThreshold = current_time + 200
                     return
             # создать объект
-            objects.add(Enemy(self.rect.x, self.rect.y))
+            objects.add(createRandomEnemy(self.rect.x, self.rect.y))
             self.count -= 1
             self.nextPortalThreshold = current_time + self.delay
         return super().update(events, objects)

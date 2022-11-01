@@ -4,7 +4,7 @@ from game_object import GameObject
 class Block(GameObject):
     def __init__(self, x: int, y: int):
         super().__init__('block1', x, y)
-        self.life = 3
+        self.life = 2
     def update(self, events, objects):
         return super().update(events, objects)
     

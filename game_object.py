@@ -45,9 +45,9 @@ class GameObject(pygame.sprite.Sprite):
                     self.isShildVisible = True
         pass
 
-    def giveShield(self):
+    def giveShield(self, tick=5):
         self.isShild = True
-        self.shieldTick = 5
+        self.shieldTick = tick
         self.isShildVisible = True
 
     def secondDraw(self, surface):
@@ -109,3 +109,23 @@ class SysObject(GameObject):
         self.isAim = False
         self.isMoveBlock = False
         self.tag = 'SysObject'
+
+BONUS_LIFE = 10000
+class BonusObject(GameObject):
+    def __init__(self, file_name: str, x: int, y: int):
+        super().__init__(file_name, x, y)
+        self.isAim = False
+        self.isMoveBlock = False
+        self.tag = 'BonusObject'
+        self.lifeThreshold = pygame.time.get_ticks() + BONUS_LIFE
+    def takeBonus(self, player, objects):
+        self.kill()
+    def update(self, events, objects):
+        for cur in objects:
+            if cur.tag == 'Player':
+                if cur.collide(self.rect):
+                    self.takeBonus(cur, objects)
+                break
+        if pygame.time.get_ticks() > self.lifeThreshold:
+            self.kill()
+        return super().update(events, objects)

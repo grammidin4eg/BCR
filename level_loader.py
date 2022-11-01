@@ -3,7 +3,7 @@ from game_object import GameObject
 from constants import BS
 from block import Block, Block2, Water, Grass, Lava
 from player import Player
-from enemy import Enemy
+from enemy import createRandomEnemy
 from ground import setCurGround
 from sysobjects import Portal
 
@@ -49,7 +49,7 @@ def loadLevelByFullName(file_name: str) -> pygame.sprite.Group:
             if stext[j] == '6':
                 newObj = Player(newX, newY)
             if stext[j] == '7':
-                newObj = Enemy(newX, newY)
+                newObj = createRandomEnemy(newX, newY)
             if stext[j] == '8':
                 newObj = Portal(newX, newY)
             if newObj != None:
