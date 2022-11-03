@@ -1,5 +1,15 @@
 import string
 
+COMMON_PARAMS = {}
+
+def getCommonParam(name, defaultValue=None):
+    return COMMON_PARAMS[name] if COMMON_PARAMS.get(name) else defaultValue
+
+def setCommonParam(name, value):
+    COMMON_PARAMS[name] = value
+
+def clearCommonParam():
+    COMMON_PARAMS.clear()
 
 class Stage:
     def __init__(self):

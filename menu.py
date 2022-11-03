@@ -16,7 +16,7 @@ class MenuStage(Stage):
         self.rect.x = 250
         self.menu = 0
 
-        self.scenes = ['GAME', 'CONSTRUCT', 'EXIT']
+        self.scenes = ['NEW_GAME', 'CONSTRUCT', 'EXIT']
         self.ym = 500
     def render(self, screen):
         # Заголовок
