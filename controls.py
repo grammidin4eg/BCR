@@ -16,3 +16,15 @@ def isControlDown():
 
 def isControlFire(event):
     return event.key == pygame.K_SPACE
+
+def isControlLeft(event):
+    return event.key == pygame.K_LEFT or event.key == pygame.K_a
+
+def isControlRight(event):
+    return event.key == pygame.K_RIGHT or event.key == pygame.K_d
+
+def isControlUp(event):
+    return event.key == pygame.K_UP or event.key == pygame.K_w
+
+def isControlDown(event):
+    return event.key == pygame.K_DOWN or event.key == pygame.K_s

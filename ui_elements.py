@@ -1,7 +1,7 @@
 from numpy import array
 import pygame
 
-MARGIN = 10
+MARGIN = 20
 
 def renderMenus(array, screen):
     activeMenu = None
@@ -21,7 +21,7 @@ class RectMenu:
         self.right = None
         self.up = None
         self.down = None
-    def gotoTo(self, toMenu):
+    def goTo(self, toMenu):
         if toMenu:
             toMenu.active = True
             self.active = False
