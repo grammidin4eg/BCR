@@ -29,7 +29,9 @@ class NewGameScene(Stage):
         self.menus.append(abil3)
         self.menus.append(goMenu)
         self.activeMenu = None
+        self.back = pygame.image.load('images/back.png').convert_alpha()
     def render(self, screen):
+        screen.blit(self.back, (0,0))
         screen.blit(self.titleObj, (50, 120))
         screen.blit(self.secondObj , (50, 230))
         self.activeMenu = renderMenus(self.menus, screen)
@@ -44,5 +46,7 @@ class NewGameScene(Stage):
                     self.activeMenu.goTo(self.activeMenu.left)
                 if isControlRight(event):
                     self.activeMenu.goTo(self.activeMenu.right)
+                if event.key == pygame.K_ESCAPE:
+                    return 'MENU'
     def start(self):
         pass

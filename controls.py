@@ -28,3 +28,6 @@ def isControlUp(event):
 
 def isControlDown(event):
     return event.key == pygame.K_DOWN or event.key == pygame.K_s
+
+def isControlEnter(event):
+    return event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER
