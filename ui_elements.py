@@ -1,4 +1,3 @@
-from numpy import array
 import pygame
 
 MARGIN = 20
